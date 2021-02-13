@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "bin/**/*"
+      ],
+      "rules": {
+        "node/no-unpublished-require": "off",
+        "node/no-extraneous-require": "off"
+      }
+    }
+  ]
+}
