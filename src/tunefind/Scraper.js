@@ -1,15 +1,16 @@
-let convertTitleToKey = require('./helpers.js').convertTitleToKey;
-let Seasons = require('./Seasons.js');
+const convertTitleToKey = require('./helpers.js').convertTitleToKey
+const Seasons = require('./seasons.js')
 
 class Scraper {
-    constructor(title) {
-      this.title = title;
-    }
-    async getTracksList() {
-        let tvShowUrl = 'https://www.tunefind.com/show/' + convertTitleToKey(this.title);
-        let seasons = new Seasons(tvShowUrl);
-        return await seasons.get();
-    }
+  constructor(title) {
+    this.title = title
+  }
+
+  async getTracksList() {
+    const tvShowUrl = 'https://www.tunefind.com/show/' + convertTitleToKey(this.title)
+    const seasons = new Seasons(tvShowUrl)
+    return seasons.get()
+  }
 }
 
-module.exports = Scraper;
+module.exports = Scraper

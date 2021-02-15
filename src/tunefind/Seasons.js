@@ -1,25 +1,28 @@
-let getDOMList = require('./helpers.js').getDOMList;
-let Episodes = require('./Episodes.js');
+/* eslint-disable no-await-in-loop */
+
+const getDOMList = require('./helpers.js').getDOMList
+const Episodes = require('./episodes.js')
 
 class Seasons {
-    constructor(tvShowUrl) {
-      this.tvShowUrl = tvShowUrl;
+  constructor(tvShowUrl) {
+    this.tvShowUrl = tvShowUrl
+  }
+
+  async get() {
+    const data = await getDOMList(this.tvShowUrl, '.EpisodeListItem__title___32XUR')
+    const seasons = []
+    for (let i = 0; i < data.length; i++) {
+    //   console.log('season ' + String(i + 1))
+      const url = this.tvShowUrl + '/season-' + String(i + 1)
+      const episodes = new Episodes(url)
+      seasons.push({
+        season: i + 1,
+        url: url,
+        episodes: await episodes.get(),
+      })
     }
-    async get() {
-        let data = await getDOMList(this.tvShowUrl, '.EpisodeListItem__title___32XUR');
-        let seasons = [];
-        for (let i = 0; i < data.length; i++) {
-            console.log('season ' + String(i + 1));
-            let url = this.tvShowUrl + '/season-' + String(i + 1);
-            let episodes = new Episodes(url);
-            seasons.push({
-                season: i + 1,
-                url: url,
-                episodes: await episodes.get()
-            });
-        }
-        return seasons;
-    }
+    return seasons
+  }
 }
 
-module.exports = Seasons;
+module.exports = Seasons
