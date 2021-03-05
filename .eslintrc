@@ -1,8 +1,25 @@
 {
-  "extends": [
-    "oclif",
-    "oclif-typescript"
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
   ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    // Google style
+    "google"
+  ],
+  "rules": {
+    "valid-jsdoc": "off",
+    "require-jsdoc": "off",
+    "indent": "off",
+    "no-multi-spaces": "off",
+    "max-len": ["error", {"ignoreUrls":  true, "ignorePattern":  "^import .*"}],
+  },
   "overrides": [
     {
       "files": [
@@ -11,6 +28,14 @@
       "rules": {
         "node/no-unpublished-require": "off",
         "node/no-extraneous-require": "off"
+      }
+    },
+    {
+      "files": [
+        "bin/**/*"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
       }
     }
   ]
