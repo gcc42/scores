@@ -7,7 +7,7 @@ class Tracks {
   }
 
   async get() {
-    const data = await getDOMList(this.episodeUrl, '.SongRow__center___1HKjk')
+    const data = await getDOMList(this.episodeUrl, '.SongRow_center__3Vzso')
     const tracks = []
     for (let i = 0; i < data.length; i += 2) {
       tracks.push({

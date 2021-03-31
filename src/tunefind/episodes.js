@@ -9,7 +9,7 @@ class Episodes {
   }
 
   async get() {
-    const data = await getDOMList(this.seasonUrl, '.EpisodeListItem__title___32XUR')
+    const data = await getDOMList(this.seasonUrl, '.EpisodeListItem_title__1g7Tx')
     const episodes = []
     for (let i = 0; i < data.length; i++) {
       const url = 'https://www.tunefind.com' + data[i].firstChild.href

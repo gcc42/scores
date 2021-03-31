@@ -9,7 +9,7 @@ class Seasons {
   }
 
   async get() {
-    const data = await getDOMList(this.tvShowUrl, '.EpisodeListItem__title___32XUR')
+    const data = await getDOMList(this.tvShowUrl, '.EpisodeListItem_title__1g7Tx')
     const seasons = []
     for (let i = 0; i < data.length; i++) {
     //   console.log('season ' + String(i + 1))
