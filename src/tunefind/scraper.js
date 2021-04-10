@@ -2,7 +2,7 @@
 @typescript-eslint/no-var-requires */
 
 const convertTitleToKey = require('./helpers.js').convertTitleToKey;
-const Seasons = require('./seasons.js');
+const getSeasons = require('./seasons.js').getSeasons;
 
 class Scraper {
   constructor(title) {
@@ -12,8 +12,7 @@ class Scraper {
   async getTracksList() {
     const tvShowUrl =
         'https://www.tunefind.com/show/' + convertTitleToKey(this.title);
-    const seasons = new Seasons(tvShowUrl);
-    return seasons.get();
+    return getSeasons(tvShowUrl);
   }
 }
 

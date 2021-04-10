@@ -3,28 +3,21 @@
 @typescript-eslint/no-var-requires */
 
 const getDOMList = require('./helpers.js').getDOMList;
-const Tracks = require('./tracks.js');
+const getTracks = require('./tracks.js').getTracks;
 
-class Episodes {
-  constructor(seasonUrl) {
-    this.seasonUrl = seasonUrl;
+async function getEpisodes(seasonUrl) {
+  const data =
+      await getDOMList(seasonUrl, '.EpisodeListItem_title__1g7Tx');
+  const episodes = [];
+  for (let i = 0; i < data.length; i++) {
+    const url = 'https://www.tunefind.com' + data[i].firstChild.href;
+    episodes.push({
+      episode: i + 1,
+      url: url,
+      tracks: await getTracks(url),
+    });
   }
+  return episodes;
+};
 
-  async get() {
-    const data =
-        await getDOMList(this.seasonUrl, '.EpisodeListItem_title__1g7Tx');
-    const episodes = [];
-    for (let i = 0; i < data.length; i++) {
-      const url = 'https://www.tunefind.com' + data[i].firstChild.href;
-      const tracks = new Tracks(url);
-      episodes.push({
-        episode: i + 1,
-        url: url,
-        tracks: await tracks.get(),
-      });
-    }
-    return episodes;
-  }
-}
-
-module.exports = Episodes;
+module.exports = { getEpisodes: getEpisodes };

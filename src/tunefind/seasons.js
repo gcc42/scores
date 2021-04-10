@@ -3,29 +3,22 @@
 @typescript-eslint/no-var-requires */
 
 const getDOMList = require('./helpers.js').getDOMList;
-const Episodes = require('./episodes.js');
+const getEpisodes = require('./episodes.js').getEpisodes;
 
-class Seasons {
-  constructor(tvShowUrl) {
-    this.tvShowUrl = tvShowUrl;
+async function getSeasons(tvShowUrl) {
+  const data =
+      await getDOMList(tvShowUrl, '.EpisodeListItem_title__1g7Tx');
+  const seasons = [];
+  for (let i = 0; i < data.length; i++) {
+    //   console.log('season ' + String(i + 1))
+    const url = tvShowUrl + '/season-' + String(i + 1);
+    seasons.push({
+      season: i + 1,
+      url: url,
+      episodes: await getEpisodes(url),
+    });
   }
-
-  async get() {
-    const data =
-        await getDOMList(this.tvShowUrl, '.EpisodeListItem_title__1g7Tx');
-    const seasons = [];
-    for (let i = 0; i < data.length; i++) {
-      //   console.log('season ' + String(i + 1))
-      const url = this.tvShowUrl + '/season-' + String(i + 1);
-      const episodes = new Episodes(url);
-      seasons.push({
-        season: i + 1,
-        url: url,
-        episodes: await episodes.get(),
-      });
-    }
-    return seasons;
-  }
+  return seasons;
 }
 
-module.exports = Seasons;
+module.exports = { getSeasons: getSeasons };
