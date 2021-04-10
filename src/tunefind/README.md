@@ -3,7 +3,7 @@
 Sample usage:
 
 ```
-let Scraper = require('./tunefind/Scraper.js');
+let Scraper = require('./tunefind/scraper.js');
 
 let scraper = new Scraper('Riverdale');
 

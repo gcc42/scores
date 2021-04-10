@@ -1,28 +1,31 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop,
+@typescript-eslint/explicit-function-return-type,
+@typescript-eslint/no-var-requires */
 
-const getDOMList = require('./helpers.js').getDOMList
-const Episodes = require('./episodes.js')
+const getDOMList = require('./helpers.js').getDOMList;
+const Episodes = require('./episodes.js');
 
 class Seasons {
   constructor(tvShowUrl) {
-    this.tvShowUrl = tvShowUrl
+    this.tvShowUrl = tvShowUrl;
   }
 
   async get() {
-    const data = await getDOMList(this.tvShowUrl, '.EpisodeListItem_title__1g7Tx')
-    const seasons = []
+    const data =
+        await getDOMList(this.tvShowUrl, '.EpisodeListItem_title__1g7Tx');
+    const seasons = [];
     for (let i = 0; i < data.length; i++) {
-    //   console.log('season ' + String(i + 1))
-      const url = this.tvShowUrl + '/season-' + String(i + 1)
-      const episodes = new Episodes(url)
+      //   console.log('season ' + String(i + 1))
+      const url = this.tvShowUrl + '/season-' + String(i + 1);
+      const episodes = new Episodes(url);
       seasons.push({
         season: i + 1,
         url: url,
         episodes: await episodes.get(),
-      })
+      });
     }
-    return seasons
+    return seasons;
   }
 }
 
-module.exports = Seasons
+module.exports = Seasons;
