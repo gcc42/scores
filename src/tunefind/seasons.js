@@ -21,4 +21,4 @@ async function getSeasons(tvShowUrl) {
   return seasons;
 }
 
-module.exports = { getSeasons: getSeasons };
+module.exports = {getSeasons: getSeasons};

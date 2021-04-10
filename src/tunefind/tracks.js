@@ -15,4 +15,4 @@ async function getTracks(episodeUrl) {
   return tracks;
 }
 
-module.exports = { getTracks: getTracks };
+module.exports = {getTracks: getTracks};

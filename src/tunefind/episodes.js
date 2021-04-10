@@ -18,6 +18,6 @@ async function getEpisodes(seasonUrl) {
     });
   }
   return episodes;
-};
+}
 
-module.exports = { getEpisodes: getEpisodes };
+module.exports = {getEpisodes: getEpisodes};
