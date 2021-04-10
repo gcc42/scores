@@ -14,7 +14,7 @@ class Tracks {
     for (let i = 0; i < data.length; i += 2) {
       tracks.push({
         title: await data[i].childNodes[0].firstChild.textContent,
-        author: await data[i].childNodes[1].firstChild.textContent,
+        artist: await data[i].childNodes[1].firstChild.textContent,
       });
     }
     return tracks;
